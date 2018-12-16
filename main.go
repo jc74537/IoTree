@@ -52,7 +52,7 @@ var (
 		{"Hark The Herald Angels", "Hark The Herald Angels:d=4,o=5,b=100:10a.,19p,40a.,36p,20a.,20p,26g.,5p,24e.,15p,6f.,40p,e.,96p,23e.,72f.,30p,240,g.,19p,c.,40p,3c.,17p,3d.,13p,1c."},
 		{"Have Yourself A Merry Little Christmas", "Have Yourself A Merry Little Christmas:d=4,o=5,b=100:16b,8c,8e.,g.,16b,8c6,8g,f,16p,8e,16d,c,16c,d.,8p,16b,8c,8e,g.,16b,8c.6,2g,p,e,g,c6,16d6,8e.6,8d.6,8c6,8b,8a,g,16e,f,2e,16p,8f,16g,16d,16d,8c,8d,16a,c.,e,g,16b,8c.6,8g,f.,16p,8e,16d,8c,16d,16e,8d.,8e,8p,16c,8e,g.,16b,8c6,2g,p,e,g,c6,d6,8d.6,16c6,16p,8b,16a,g#.,8b.,16b,2c.6,16p"},
 		{"I Saw Mommy Kissing Santa Claus", "I Saw Mommy Kissing Santa Claus:d=4,o=5,b=160:2c.,d,e,g,a,8c6,2b.,g,1e,a,g,e,c,a,g,e,8c.,1b.,f,e,d,d.,8c#.,2d.,8a.,16b.,8a.,g.,f#.,8a.,2g.,e,d,e,f#,g,a,g#,a,a#,b,a,f,8e,2d.,g,2c.,d,e,g,a,8c6,1b,g,1e,a,g,2e,16c,a,g,e,8c.,1a,16g#,8a.,16b,c6,8c.6,c6,8d.6,1b,f#,8a.,16a,g,f,8e,2d,8e.,2f,g,a,8c.6,a,2c6,2d6,1c6"},
-		{"I Wish It Could Be Christmas Everyday", "I Wish It Could Be Christmas Everyday:d=4,o=5,b=90:16g,a,16g,b.,c.7,b.,a,g.,4a.,16g,f,4a.,16g,1e,g,16g,f#.,g,f#.,16f#,e,16e,d.,e,4d,c.,e.,f#,2d,16d5,d5,d.5,16g,a,16g,b.,c.7,b.,a,g.,4a.,16g,f,4a.,16g,1e,g,16a,2b,16p,b.,2a,16p,b.,a.,g.,b.5,a.5,g.5"},
+		//{"I Wish It Could Be Christmas Everyday", "I Wish It Could Be Christmas Everyday:d=4,o=5,b=90:16g,a,16g,b.,c.7,b.,a,g.,4a.,16g,f,4a.,16g,1e,g,16g,f#.,g,f#.,16f#,e,16e,d.,e,4d,c.,e.,f#,2d,16d5,d5,d.5,16g,a,16g,b.,c.7,b.,a,g.,4a.,16g,f,4a.,16g,1e,g,16a,2b,16p,b.,2a,16p,b.,a.,g.,b.5,a.5,g.5"}, //BROKEN
 		{"I ll Be Home For Christmas", "I ll Be Home For Christmas:d=4,o=5,b=160:2g.,f#,2a,g,2d,1d.,2e.,d,2f.,e,2a,e,2g.,f#,d,2a.,b,2d.,c,2b.,d,2g.,f#,2a,a,2f#.,f#,1e.,d.,2g.,f#,2a,g,2d,1d.,2e.,d,2f.,e,2c.,d,e,b,a,g,2a.,g,2a.,g,1d,2e.,e,2a,2b,2g,2a,2g."},
 		{"Jingle Bell Rock", "Jingle Bell Rock:d=4,o=5,b=100:8a.,8c.6,16d.6,16d6,8c.6,8g#,16g#,16c6,16p,d.6,8p,8c6,16a,8b,16a,8g.,2c.6,8p,8c6,16c6,8c.6,16p,8b,16b,8b.,8a,16b,8a,e.,8p,8a,16b,8a,8e.,8g,16p,8a,16b,8a,f.,8p,8d,8e.,16f,16g,8p,8a,16g,8d,16e,16f,16p,2g"},
 		{"Jingle Bells (Long)", "Jingle Bells:d=4,o=5,b=125:8g,8e6,8d6,8c6,2g,8g,8e6,8d6,8c6,2a,8a,8f6,8e6,8d6,8b,8g,8b,8d6,8g.6,16g6,8f6,8d6,2e6,8g,8e6,8d6,8c6,2g,16f#,8g,8e6,8d6,8c6,2a,8a,8f6,8e6,8d6,8g6,16g6,16f#6,16g6,16f#6,16g6,16g#6,8a.6,16g6,8e6,8d6,c6,g6,8e6,8e6,8e.6,16d#6,8e6,8e6,8e.6,16d#6,8e6,8g6,8c.6,16d6,2e6,8f6,8f6,8f.6,16f6,8f6,8e6,8e6,16e6,16e6,8e6,8d6,8d6,8e6,2d6"},
@@ -153,7 +153,7 @@ func work() {
 	})
 }
 func playSong(s song) {
-	sound.Play(s.rtttl)
+	go sound.Play(s.rtttl)
 }
 
 func runCommand(c command) {
