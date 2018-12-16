@@ -31,6 +31,7 @@ type command struct {
 	instruction byte                  //PWM level, or 255 for fully on, or wait duration in ms
 	pwm         bool                  //Is it a PWM command?
 }
+//PatternReply to be used when generating JSON replies for patterns
 type PatternReply struct {
 	Name  string `json:"PatternName"`
 	Index int    `json:"PatternID"`
@@ -77,7 +78,7 @@ var (
 		{"We Wish You A Merry Christmas", "We Wish You A Merry Christmas:d=4,o=5,b=200:d,g,8g,8a,8g,8f#,e,e,e,a,8a,8b,8a,8g,f#,d,d,b,8b,8c6,8b,8a,g,e,d,e,a,f#,2g,d,g,8g,8a,8g,8f#,e,e,e,a,8a,8b,8a,8g,f#,d,d,b,8b,8c6,8b,8a,g,e,d,e,a,f#,1g,d,g,g,g,2f#,f#,g,f#,e,2d,a,b,8a,8a,8g,8g,d6,d,d,e,a,f#,2g"},
 		{"While Shepherds Watched", "While Shepherds Watched:d=4,o=5,b=90:g.,4b,16b.,a.,g.,c.6,c.6,b.,a.,b.,d.6,d.6,c#.6,2d6,d.6,4e6,16d.6,c.6,b.,a.,g.,f#.,b.,a.,g.,g.,f#.,4g."},
 		{"Winter Wonderland", "Winter Wonderland:d=4,o=5,b=140:8a#.,16a#,2a#.,8a#.,16a#,g,2a#,8a#.,16a#,2a#.,8a#.,16a#,g#,2a#,8p,16a#,8d.6,16d6,8d.6,c.6,8p,16c6,8a#.,16a#,8a#.,g#.,8p,16g#,8g.,16g,8g.,16g,8f.,16f,8f.,16f,2d#,p,8a#.,16a#,2a#.,8a#.,16a#,g,2a#,8a#.,16a#,2a#.,8a#.,16a#,g#,2a#,8p,16a#,8d.6,16d6,8d.6,c.6,8p,16c6,8a#.,16a#,8a#.,g#.,8p,16g#,8g.,16g,8g.,16g,8f.,16f,8f.,16f,2d#,p,8d.,16d,8b.,16b,8e.,16e,8c.6,16c6,b,2g,p,8d.,16d,8b.,16b,8e.,16e,8c.6,16c6,2b.,p"},
-		{"Monty Python", "Monty Python:d=8,o=5,b=180:d#6,d6,4c6,b,4a#,a,4g#,g,f,g,g#,4g,f,2a#,p,a#,g,p,g,g,f#,g,d#6,p,a#,a#,p,g,g#,p,g#,g#,p,a#,2c6,p,g#,f,p,f,f,e,f,d6,p,c6,c6,p,g#,g,p,g,g,p,g#,2a#,p,a#,g,p,g,g,f#,g,g6,p,d#6,d#6,p,a#,a,p,f6,f6,p,f6,2f6,p,d#6,4d6,f6,f6,e6,f6,4c6,f6,f6,e6,f6,a#,p,a,a#,p,a,2a#"},
+		// {"Monty Python", "Monty Python:d=8,o=5,b=180:d#6,d6,4c6,b,4a#,a,4g#,g,f,g,g#,4g,f,2a#,p,a#,g,p,g,g,f#,g,d#6,p,a#,a#,p,g,g#,p,g#,g#,p,a#,2c6,p,g#,f,p,f,f,e,f,d6,p,c6,c6,p,g#,g,p,g,g,p,g#,2a#,p,a#,g,p,g,g,f#,g,g6,p,d#6,d#6,p,a#,a,p,f6,f6,p,f6,2f6,p,d#6,4d6,f6,f6,e6,f6,4c6,f6,f6,e6,f6,a#,p,a,a#,p,a,2a#"}, //BROKEN
 	}
 	firmataAdaptor = firmata.NewAdaptor("COM3")
 	commandChan    chan command
@@ -135,7 +136,7 @@ var (
 
 func main() {
 	commandChan = make(chan command, 20)
-	//playSong(library[1])
+	playSong(song{"startup", "startup:d=4,o=4,b=200:c,p,c"})
 	go startServer()
 	robot := gobot.NewRobot("bot",
 		[]gobot.Connection{firmataAdaptor},
