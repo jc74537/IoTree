@@ -31,8 +31,3 @@ func Play(sound string) {
 	}
 
 }
-//Setup a serial port with the specified portname
-func Setup(portname string) {
-	log.Println("Opening sound device: "+portname)
-	c = &serial.Config{Name: portname, Baud: 9600}
-}
