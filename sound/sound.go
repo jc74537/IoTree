@@ -7,12 +7,13 @@ import (
 )
 
 var (
-	c      = &serial.Config{Name: "COM10", Baud: 9600}
+	c      = &serial.Config{Name: "COM12", Baud: 9600}
 	s, err = serial.OpenPort(c)
 )
 
 //Play a christmas song from an RTTTL string
-func Play(sound string) {
+func Play(sound string) string {
+	//var reply string
 	if s != nil { //if a previous reconnect attempt failed, it may set s to nil
 		_, err := s.Write([]byte(sound))
 		if err != nil {
@@ -21,13 +22,27 @@ func Play(sound string) {
 			s, err = serial.OpenPort(c)
 			if err != nil {
 				log.Println("Failed to reconnect: " + err.Error())
-			} else { //If it reconnects
-				log.Println("Reconnected sound device")
-				Play(sound) //try again
+				return "err"
 			}
+			//if it reconnects
+			log.Println("Reconnected sound device")
+			return Play(sound) //try again
 		}
-	} else { //really, without making it set up the serial device again, it's not recoverable
-		log.Println("Sound device disconnected. This is not recoverable.")
-	}
+		buf := make([]byte, 1)
+		_, err = s.Read(buf)
+		if err != nil {
+			log.Println(err)
+			return "err"
+		}
+		//log.Printf("Recieved: %q %T", buf, buf)
+		if buf[0] == byte('a') {
+			log.Printf("Finished")
+			return "done"
+		}
+		return "err"
+	} 
+	//really, without making it set up the serial device again, it's not recoverable
+	log.Println("Sound device disconnected. This is not recoverable.")
+	return "err"
 
 }
