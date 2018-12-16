@@ -196,8 +196,10 @@ func lightHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		fmt.Println("Running pattern: " + id)
 		w.WriteHeader(http.StatusOK)
-		for _, c := range patterns[idNo].commands {
-			commandChan <- c
+		if len(commandChan < 3) {}
+			for _, c := range patterns[idNo].commands {
+				commandChan <- c
+			}
 		}
 	}
 }
