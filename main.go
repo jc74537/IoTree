@@ -182,7 +182,7 @@ func startServer() {
 	//Setup a static router for HTML/CSS/JS
 	mr.PathPrefix("/client/").Handler(http.StripPrefix("/client/", http.FileServer(http.Dir("./resources")))) //test for directory traversal!
 	//CRUD API routes for songs
-	songRouter := apiRouter.PathPrefix("/song").Subrouter()
+	songRouter := apiRouter.PathPrefix("/songs").Subrouter()
 	/*Play A Song   */ songRouter.HandleFunc("/{id}", songHandler).Methods("POST")
 	/*List all songs*/ songRouter.HandleFunc("/list", songLister).Methods("GET")
 	//API routes for lights
