@@ -43,7 +43,7 @@ function playSong() {
     if (option.name !== "Choose a song...") {
         console.log(option);
         $.ajax({ //populate users dropdown
-            url: "/api/song/"+option.SongID,
+            url: "/api/songs/"+option.SongID,
             type: 'POST'
         });
         //location.reload()
