@@ -156,7 +156,9 @@ func work() {
 	})
 }
 func playSong(s song) string {
-	return (sound.Play(s.rtttl))
+	resp := sound.Play(s.rtttl)
+	busy = false
+	return(resp)
 }
 
 func runCommand(c command) {
