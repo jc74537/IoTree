@@ -83,6 +83,7 @@ var (
 		// {"Monty Python", "Monty Python:d=8,o=5,b=180:d#6,d6,4c6,b,4a#,a,4g#,g,f,g,g#,4g,f,2a#,p,a#,g,p,g,g,f#,g,d#6,p,a#,a#,p,g,g#,p,g#,g#,p,a#,2c6,p,g#,f,p,f,f,e,f,d6,p,c6,c6,p,g#,g,p,g,g,p,g#,2a#,p,a#,g,p,g,g,f#,g,g6,p,d#6,d#6,p,a#,a,p,f6,f6,p,f6,2f6,p,d#6,4d6,f6,f6,e6,f6,4c6,f6,f6,e6,f6,a#,p,a,a#,p,a,2a#"}, //BROKEN
 	}
 	firmataAdaptor = firmata.NewAdaptor("COM3")
+	busy bool = false
 	commandChan    chan command
 	led            = []*gpio.DirectPinDriver{
 		gpio.NewDirectPinDriver(firmataAdaptor, "5"),  //Red channel 1
@@ -226,11 +227,12 @@ func songHandler(w http.ResponseWriter, r *http.Request) {
 	id := mux.Vars(r)["id"]
 
 	idNo, err := strconv.Atoi(id)
-	if err != nil || idNo >= len(library) {
+	if err != nil || idNo >= len(library) || busy {
 		log.Println("Failed to play song: " + id)
 		w.WriteHeader(http.StatusNotFound)
 	} else {
 		log.Println("Playing song: " + id)
+		busy = true
 		log.Println(playSong(library[idNo]))
 		w.WriteHeader(http.StatusOK)
 	}
